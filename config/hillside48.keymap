@@ -1,14 +1,9 @@
-/*
- * Copyright (c) 2022 The ZMK Contributors
- *
- * SPDX-License-Identifier: MIT
- */
-
 #include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/ext_power.h>
-#include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/outputs.h>
+#include <dt-bindings/zmk/pointing.h>
 
 #define main    0
 #define lower   1
@@ -44,9 +39,9 @@
         main {
         /*
          * -------------------------------------------------------------------------------------------------------------------------------------
-         * | TAB   |   Q   |   W   |   E   |   R   |   T   |-----------------------------------|   Y   |   U   |   I   |   O   |   P   | CAP   |
+         * | TAB   |   Q   |   W   |   E   |   R   |   T   |-----------------------------------|   Y   |   U   |   I   |   O   |   P   | CAPS  |
          * | LSHIFT|   A   |   S   |   D   |   F   |   G   |-----------------------------------|   H   |   J   |   K   |   L   |   ;   | RSHIFT|
-         * | LMETA |   Z   |   X   |   C   |   V   |   B   | none  |-------------------|PRTSCRN|   N   |   M   |   ,   |   .   |   /   | LMETA |
+         * | LMETA |   Z   |   X   |   C   |   V   |   B   | MUTE  |-------------------|PRTSCRN|   N   |   M   |   ,   |   .   |   /   | RMETA |
          * --------| none  |---------------| LCTRL | LALT  | LOWER | ENTER |---|  ESC  | RAISE | RALT  | RCTRL |-------| none  |----------------
          *
          * CAP = tap dance CAPWORD/CAPS
@@ -56,11 +51,11 @@
             bindings = <
 &kp  TAB      &kp  Q        &kp  W        &kp  E        &kp  R        &kp  T                                            &kp  Y        &kp  U        &kp  I        &kp  O        &kp  P        &cap_dance
 &kp  LSHIFT   &kp  A        &kp  S        &kp  D        &kp  F        &kp  G                                            &kp  H        &kp  J        &kp  K        &kp  L        &kp  SEMI     &kp  RSHIFT
-&kp  LMETA    &kp  Z        &kp  X        &kp  C        &kp  V        &kp  B        &none                 &kp  PSCRN    &kp  N        &kp  M        &kp  COMMA    &kp  DOT      &kp  SLASH    &kp  RMETA
+&kp  LMETA    &kp  Z        &kp  X        &kp  C        &kp  V        &kp  B        &kp  C_MUTE           &kp  PSCRN    &kp  N        &kp  M        &kp  COMMA    &kp  DOT      &kp  SLASH    &kp  RMETA
               &none                       &kp  LCTRL    &kp  LALT  &lt lower SPACE  &kp  ENTER            &kp  ESC  &lt raise BKSPC   &kp  RALT     &kp  RCTRL                  &none
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp C_BRI_INC C_BRI_DEC>;
+            sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_BRI_DEC C_BRI_INC>;
         };
 
         lower {
@@ -68,54 +63,54 @@
          * -------------------------------------------------------------------------------------------------------------------------------------
          * |  F12  |  F1   |  F2   |  F3   |  F4   |  F5   |-----------------------------------|  F6   |  F7   |  F8   |  F9   |  F10  |  F11  |
          * |   `   |   1   |   2   |   3   |   4   |   5   |-----------------------------------|   6   |   7   |   8   |   9   |   0   |   ~   |
-         * | trans | trans | trans | trans | trans | trans | none  |-------------------| trans | trans | trans | trans | trans | trans | trans |
+         * | trans |   !   |   @   |   #   |   $   |   %   | trans |-------------------| trans |   ^   |   &   |   *   |   (   |   )   | trans |
          * --------| trans |---------------| trans | trans | trans | trans |---| trans | trans | trans | trans |-------| trans |----------------
          */
 
             bindings = <
 &kp F12     &kp F1        &kp F2        &kp F3        &kp F4        &kp F5                                            &kp F6        &kp F7        &kp F8        &kp F9        &kp F10       &kp F11
 &kp GRAVE   &kp N1        &kp N2        &kp N3        &kp N4        &kp N5                                            &kp N6        &kp N7        &kp N8        &kp N9        &kp N0        &kp TILDE
-&trans      &trans        &trans        &trans        &trans        &trans        &none                 &trans        &trans        &trans        &trans        &trans        &trans        &trans
+&trans      &kp EXCL      &kp AT        &kp HASH      &kp DOLLAR    &kp PRCNT     &trans                &trans        &kp CARET     &kp AMPS      &kp ASTRK     &kp LPAR      &kp RPAR        &trans
             &trans                      &trans        &trans        &trans        &trans                &trans        &trans        &trans        &trans                      &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+            sensor-bindings = <&trans &inc_dec_kp SCRL_LEFT SCRL_RIGHT>;
         };
 
         raise {
         /*
          * -------------------------------------------------------------------------------------------------------------------------------------
-         * | trans | trans |   +   |   =   |   (   |   )   |-----------------------------------| trans | trans | trans | trans | trans | trans |
-         * | trans | trans |   -   |   _   |   {   |   }   |-----------------------------------| LEFT  | DOWN  | UP    | RIGHT | trans | trans |
-         * | trans | trans |   \   |   |   |   [   |   ]   | trans |-------------------| trans | trans | trans | trans | trans | trans | trans |
+         * |   !   |   $   |   +   |   =   |   (   |   )   |-----------------------------------|PG_DOWN| HOME  |  END  | PG_UP |   ^   | trans |
+         * |   @   |   %   |   -   |   _   |   {   |   }   |-----------------------------------| LEFT  | DOWN  |  UP   | RIGHT |   &   | trans |
+         * |   #   |   ^   |   \   |   |   |   [   |   ]   | trans |-------------------| trans | trans | trans | trans | trans |   *   | trans |
          * --------| trans |---------------| trans | trans | trans | trans |---| trans | trans | trans | trans |-------| trans |----------------
          */
             bindings = <
-&trans        &trans        &kp  PLUS     &kp  EQUAL    &kp  LBKT     &kp  RBKT                                         &trans        &trans        &trans        &trans        &trans        &trans
-&trans        &trans        &kp  MINUS    &kp  UNDER    &kp  LBRC     &kp  RBRC                                         &kp  LEFT     &kp  DOWN     &kp  UP       &kp  RIGHT    &trans        &trans
-&trans        &trans        &kp  BSLH     &kp  PIPE     &kp  LBKT     &kp  RBKT     &trans                &trans        &trans        &trans        &trans        &trans        &trans        &trans
+&kp  EXCL     &kp  DOLLAR   &kp  PLUS     &kp  EQUAL    &kp  LPAR     &kp  RPAR                                         &kp  PG_UP    &kp  HOME     &kp  END      &kp  PG_DN    &kp CARET     &trans
+&kp  AT       &kp  PRCNT    &kp  MINUS    &kp  UNDER    &kp  LBRC     &kp  RBRC                                         &kp  LEFT     &kp  DOWN     &kp  UP       &kp  RIGHT    &kp AMPS      &trans
+&kp  HASH     &kp  CARET    &kp  BSLH     &kp  PIPE     &kp  LBKT     &kp  RBKT     &trans                &trans        &trans        &trans        &trans        &trans        &kp ASTRK     &trans
               &trans                      &trans        &trans        &trans        &trans                &trans        &trans        &trans        &trans                      &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+            sensor-bindings = <&inc_dec_kp SCRL_UP SCRL_DOWN &trans>;
         };
 
         adjust {
         /*
          * -------------------------------------------------------------------------------------------------------------------------------------
-         * | trans | trans | trans | trans | trans | trans |-----------------------------------| trans | trans | trans | trans | trans | trans |
+         * | BT_CLR|BT_SEL0|BT_SEL1|BT_SEL2|BT_SEL3|BT_SEL4|-----------------------------------|OUT_TOG| EP_TOG| trans | trans | trans | trans |
          * | trans | trans | trans | trans | trans | trans |-----------------------------------| trans | trans | trans | trans | trans | trans |
          * | trans | trans | trans | trans | trans | trans | trans |-------------------| trans | trans | trans | trans | trans | trans | trans |
          * --------| trans |---------------| trans | trans | trans | trans |---| trans | trans | trans | trans |-------| trans |----------------
          */
             bindings = <
-&trans        &trans        &trans        &trans        &trans        &trans                                            &trans        &trans        &trans        &trans        &trans        &trans
+&bt BT_CLR    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3  &bt BT_SEL 4                                 &out OUT_TOG  &ext_power EP_TOG  &trans        &trans        &trans        &trans
 &trans        &trans        &trans        &trans        &trans        &trans                                            &trans        &trans        &trans        &trans        &trans        &trans
 &trans        &trans        &trans        &trans        &trans        &trans        &trans                &trans        &trans        &trans        &trans        &trans        &trans        &trans
               &trans                      &trans        &trans        &trans        &trans                &trans        &trans        &trans        &trans                      &trans
             >;
 
-            sensor-bindings = <&inc_dec_kp C_VOL_UP C_VOL_DN &inc_dec_kp PG_UP PG_DN>;
+            sensor-bindings = <&trans &trans>;
         };
     };
 };
