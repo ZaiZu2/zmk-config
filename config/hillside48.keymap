@@ -5,6 +5,14 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <dt-bindings/zmk/rgb.h>
 
+&lt {
+    tapping-term-ms = <150>;
+};
+
+&mt {
+    tapping-term-ms = <150>;
+};
+
 / {
     behaviors {
         cap_dance: tap_dance_0 {
@@ -13,22 +21,6 @@
             tapping-term-ms = <350>;
             bindings = <&caps_word>, <&kp CAPS>;
         };
-    };
-
-    lt {
-        tapping-term-ms = <150>;
-    };
-
-    mt {
-        tapping-term-ms = <150>;
-    };
-
-    conditional_layers {
-          compatible = "zmk,conditional-layers";
-          tri_layer {
-              if-layers = <1 2>;
-              then-layer = <3>;
-          };
     };
 
     keymap {
@@ -40,99 +32,93 @@
              * | TAB   |   Q   |   W   |   E   |   R   |   T   |-----------------------------------|   Y   |   U   |   I   |   O   |   P   | CAPS  |
              * | LSHIFT|   A   |   S   |   D   |   F   |   G   |-----------------------------------|   H   |   J   |   K   |   L   |   ;   |'(RSHIFT)|
              * | LMETA |   Z   |   X   |   C   |   V   |   B   | MUTE  |-------------------|PRTSCRN|   N   |   M   |   ,   |   .   |   /   | RMETA |
-             * --------| none  |---------------| LCTRL | LALT  |ENTER(LOW)| ESC|---| BCSP |SPC(RAI)| RALT  | RCTRL |-------| none  |----------------
+             * --------| none  |---------------| LCTRL | LALT  |RET(LOW)| ESC  |---| BSPC |SPC(RAI)| RALT  | RCTRL |-------| none  |----------------
              *
              * CAP = tap dance CAPWORD,CAPS
              * LOWER = layer tap SPACE(LOWER)
              * RAISE = layer tap BKSPC(RAISE)
-             * '(SHIFT) = mod tap QUOTE(SHIFT)
+             * '(RSHIFT) = mod tap QUOTE(SHIFT)
              */
             bindings = <
-&kp TAB     &kp Q  &kp W  &kp E      &kp R     &kp T                                 &kp Y       &kp U     &kp I      &kp O    &kp P      &cap_dance
-&kp LSHIFT  &kp A  &kp S  &kp D      &kp F     &kp G                                 &kp H       &kp J     &kp K      &kp L    &kp SEMI   &mt RSHIFT SQT
-&kp LMETA   &kp Z  &kp X  &kp C      &kp V     &kp B      &kp C_MUTE      &kp PSCRN  &kp N       &kp M     &kp COMMA  &kp DOT  &kp SLASH  &kp RMETA
-            &none         &kp LCTRL  &kp LALT  &lt 1 SPC  &kp ENTER       &kp ESC    &lt 2 BSPC  &kp RALT  &kp RCTRL           &none
+&kp TAB     &kp Q  &kp W  &kp E      &kp R     &kp T                                 &kp Y        &kp U     &kp I      &kp O    &kp P      &cap_dance
+&kp LSHIFT  &kp A  &kp S  &kp D      &kp F     &kp G                                 &kp H        &kp J     &kp K      &kp L    &kp SEMI   &mt RSHIFT SQT
+&kp LMETA   &kp Z  &kp X  &kp C      &kp V     &kp B      &kp C_MUTE      &kp PSCRN  &kp N        &kp M     &kp COMMA  &kp DOT  &kp SLASH  &kp RMETA
+            &none         &kp LCTRL  &kp LALT  &lt 2 RET  &kp ESC         &kp BSPC   &lt 3 SPACE  &kp RALT  &kp RCTRL           &none
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_BRI_DEC C_BRI_INC>;
         };
 
         win {
-        /*
-         * -------------------------------------------------------------------------------------------------------------------------------------
-         * | TAB   |   Q   |   W   |   E   |   R   |   T   |-----------------------------------|   Y   |   U   |   I   |   O   |   P   | CAPS  |
-         * | LSHIFT|   A   |   S   |   D   |   F   |   G   |-----------------------------------|   H   |   J   |   K   |   L   |   ;   |'(RSHIFT)|
-         * | LALT  |   Z   |   X   |   C   |   V   |   B   | MUTE  |-------------------|PRTSCRN|   N   |   M   |   ,   |   .   |   /   | RALT  |
-         * --------| none  |---------------| LCTRL | LMETA |ENTER(LOW)| ESC|---| BCSP |SPC(RAI)| RMETA | RCTRL |-------| none  |----------------
-         *
-         * CAP = tap dance CAPWORD/CAPS
-         * LOWER = layer tap SPACE(LOWER)
-         * RAISE = layer tap BKSPC(RAISE)
-         * QUOSHIFT = mod tap QUOTE(SHIFT)
-         */
+            /*
+             * -------------------------------------------------------------------------------------------------------------------------------------
+             * | TAB   |   Q   |   W   |   E   |   R   |   T   |-----------------------------------|   Y   |   U   |   I   |   O   |   P   | CAPS  |
+             * | LSHIFT|   A   |   S   |   D   |   F   |   G   |-----------------------------------|   H   |   J   |   K   |   L   |   ;   |'(RSHIFT)|
+             * | LALT  |   Z   |   X   |   C   |   V   |   B   | MUTE  |-------------------|PRTSCRN|   N   |   M   |   ,   |   .   |   /   | RALT  |
+             * --------| none  |---------------| LCTRL | LMETA |RET(LOW)| ESC  |---| BSPC |SPC(RAI)| RMETA | RCTRL |-------| none  |----------------
+             */
             bindings = <
-&kp TAB     &kp Q  &kp W  &kp E      &kp R      &kp T                                 &kp Y       &kp U      &kp I      &kp O    &kp P      &cap_dance
-&kp LSHIFT  &kp A  &kp S  &kp D      &kp F      &kp G                                 &kp H       &kp J      &kp K      &kp L    &kp SEMI   &mt RSHIFT SQT
-&kp LALT    &kp Z  &kp X  &kp C      &kp V      &kp B      &kp C_MUTE      &kp PSCRN  &kp N       &kp M      &kp COMMA  &kp DOT  &kp SLASH  &kp RALT
-            &none         &kp LCTRL  &kp LMETA  &lt 1 SPC  &kp ENTER       &kp ESC    &lt 2 BSPC  &kp RMETA  &kp RCTRL           &none
+&kp TAB     &kp Q  &kp W  &kp E      &kp R      &kp T                                 &kp Y        &kp U      &kp I      &kp O    &kp P      &cap_dance
+&kp LSHIFT  &kp A  &kp S  &kp D      &kp F      &kp G                                 &kp H        &kp J      &kp K      &kp L    &kp SEMI   &mt RSHIFT SQT
+&kp LALT    &kp Z  &kp X  &kp C      &kp V      &kp B      &kp C_MUTE      &kp PSCRN  &kp N        &kp M      &kp COMMA  &kp DOT  &kp SLASH  &kp RALT
+            &none         &kp LCTRL  &kp LMETA  &lt 2 RET  &kp ESC         &kp BSPC   &lt 3 SPACE  &kp RMETA  &kp RCTRL           &none
             >;
 
             sensor-bindings = <&inc_dec_kp C_VOL_DN C_VOL_UP &inc_dec_kp C_BRI_DEC C_BRI_INC>;
         };
 
         lower_layer {
-        /*
-         * -------------------------------------------------------------------------------------------------------------------------------------
-         * |  F12  |  F1   |  F2   |  F3   |  F4   |  F5   |-----------------------------------|  F6   |  F7   |  F8   |  F9   |  F10  |  F11  |
-         * |   `   |   1   |   2   |   3   |   4   |   5   |-----------------------------------|   6   |   7   |   8   |   9   |   0   |   ~   |
-         * | trans |   !   |   @   |   #   |   $   |   %   | trans |-------------------| trans |   ^   |   &   |   *   |   (   |   )   | trans |
-         * --------| trans |---------------| trans | trans | trans | trans |---| trans | trans | trans | trans |-------| trans |----------------
-         */
-
+            /*
+             * -------------------------------------------------------------------------------------------------------------------------------------
+             * |  F12  |  F1   |  F2   |  F3   |  F4   |  F5   |-----------------------------------|  F6   |  F7   |  F8   |  F9   |  F10  |  F11  |
+             * |   `   |   1   |   2   |   3   |   4   |   5   |-----------------------------------|   6   |   7   |   8   |   9   |   0   |   ~   |
+             * | trans |   !   |   @   |   #   |   $   |   %   | trans |-------------------| trans |   ^   |   &   |   *   |   (   |   )   | trans |
+             * --------| trans |---------------| trans | trans | trans | trans |---| trans | trans | trans | trans |-------| trans |----------------
+             */
             bindings = <
 &kp F12   &kp F1    &kp F2  &kp F3    &kp F4      &kp F5                          &kp F6     &kp F7    &kp F8     &kp F9    &kp F10   &kp F11
 &kp GRAVE &kp N1    &kp N2  &kp N3    &kp N4      &kp N5                          &kp N6     &kp N7    &kp N8     &kp N9    &kp N0    &kp TILDE
 &trans    &kp EXCL  &kp AT  &kp HASH  &kp DOLLAR  &kp PRCNT  &trans       &trans  &kp CARET  &kp AMPS  &kp ASTRK  &kp LPAR  &kp RPAR  &trans
-          &trans            &trans    &trans      &trans     &trans       &trans  &trans     &trans    &trans               &trans
+          &trans            &trans    &trans      &trans     &trans       &trans  &mo 4      &trans    &trans               &trans
             >;
 
             //sensor-bindings = <&trans &inc_dec_kp SCRL_LEFT SCRL_RIGHT>; // Not supported for now
         };
 
         raise_layer {
-        /*
-         * -------------------------------------------------------------------------------------------------------------------------------------
-         * |   !   |   $   |   +   |   =   |   (   |   )   |-----------------------------------|PG_DOWN| HOME  |  END  | PG_UP |   ^   | trans |
-         * |   @   |   %   |   -   |   _   |   {   |   }   |-----------------------------------| LEFT  | DOWN  |  UP   | RIGHT |   &   | trans |
-         * |   #   |   ^   |   \   |   |   |   [   |   ]   | trans |-------------------| trans | trans | trans | trans | trans |   *   | trans |
-         * --------| trans |---------------| trans | trans | trans | trans |---| trans | trans | trans | trans |-------| trans |----------------
-         */
+            /*
+             * -------------------------------------------------------------------------------------------------------------------------------------
+             * |   !   |   $   |   +   |   =   |   (   |   )   |-----------------------------------|PG_DOWN| HOME  |  END  | PG_UP |   ^   | trans |
+             * |   @   |   %   |   -   |   _   |   {   |   }   |-----------------------------------| LEFT  | DOWN  |  UP   | RIGHT |   &   | trans |
+             * |   #   |   ^   |   \   |   |   |   [   |   ]   | trans |-------------------| trans | trans | trans | trans | trans |   *   | trans |
+             * --------| trans |---------------| trans | trans | trans | trans |---| trans | trans | trans | trans |-------| trans |----------------
+             */
             bindings = <
 &kp EXCL  &kp DOLLAR  &kp PLUS   &kp EQUAL  &kp LPAR  &kp RPAR                      &kp PG_UP  &kp HOME  &kp END  &kp PG_DN  &kp CARET  &trans
 &kp AT    &kp PRCNT   &kp MINUS  &kp UNDER  &kp LBRC  &kp RBRC                      &kp LEFT   &kp DOWN  &kp UP   &kp RIGHT  &kp AMPS   &trans
 &kp HASH  &kp CARET   &kp BSLH   &kp PIPE   &kp LBKT  &kp RBKT  &trans      &trans  &trans     &trans    &trans   &trans     &kp ASTRK  &trans
-          &trans                 &trans     &trans    &trans    &trans      &trans  &trans     &trans    &trans              &trans
+          &trans                 &trans     &trans    &mo 4     &trans      &trans  &trans     &trans    &trans              &trans
             >;
 
             //sensor-bindings = <&inc_dec_kp SCRL_UP SCRL_DOWN &trans>; // Not supported for now
         };
 
         adjust_layer {
-        /*
-         * ---------------------------------------------------------------------------------------------------------------------------------------
-         * | BT_CLR|BT_SEL0|BT_SEL1|BT_SEL2|BT_SEL3| BT_SEL4 |-----------------------------------|OUT_USB| EP_OFF| trans | trans | trans | trans |
-         * |RGB_TOG|RGB_HUI|RGB_SAI|RGB_BRI|RGB_SPI|C_BRI_INC|-----------------------------------|OUT_BLE| EP_ON | trans | trans | trans | trans |
-         * |RGB_EFF|RGB_HUD|RGB_SAD|RGB_BRD|RGB_SPD|C_BRI_DEC| TOG 1 |-------------------| trans | trans | trans | trans | trans | trans | trans |
-         * --------| trans |---------------| trans |  trans  | trans | trans |---| trans | trans | trans | trans |-------| trans |----------------
-         */
+            /*
+             * ---------------------------------------------------------------------------------------------------------------------------------------
+             * | BT_CLR|BT_SEL0|BT_SEL1|BT_SEL2|BT_SEL3| BT_SEL4 |-----------------------------------|OUT_USB| EP_OFF| trans | trans | trans | trans |
+             * |RGB_TOG|RGB_HUI|RGB_SAI|RGB_BRI|RGB_SPI|C_BRI_INC|-----------------------------------|OUT_BLE| EP_ON | trans | trans | trans | trans |
+             * |RGB_EFF|RGB_HUD|RGB_SAD|RGB_BRD|RGB_SPD|C_BRI_DEC| TOG 0 |-------------------| trans | trans | trans | trans | trans | trans | trans |
+             * --------| trans |---------------| trans |  trans  | trans | trans |---| trans | trans | trans | trans |-------| trans |----------------
+             */
             bindings = <
 &bt BT_CLR       &bt BT_SEL 0     &bt BT_SEL 1     &bt BT_SEL 2     &bt BT_SEL 3     &bt BT_SEL 4                       &out OUT_USB  &ext_power EP_OFF  &trans  &trans  &trans  &trans
 &rgb_ug RGB_TOG  &rgb_ug RGB_HUI  &rgb_ug RGB_SAI  &rgb_ug RGB_BRI  &rgb_ug RGB_SPI  &kp C_BRI_INC                      &out OUT_BLE  &ext_power EP_ON   &trans  &trans  &trans  &trans
-&rgb_ug RGB_EFF  &rgb_ug RGB_HUD  &rgb_ug RGB_SAD  &rgb_ug RGB_BRD  &rgb_ug RGB_SPD  &kp C_BRI_DEC  &tog 0      &trans  &trans        &trans             &trans  &trans  &trans  &trans
+&rgb_ug RGB_EFF  &rgb_ug RGB_HUD  &rgb_ug RGB_SAD  &rgb_ug RGB_BRD  &rgb_ug RGB_SPD  &kp C_BRI_DEC  &tog 1      &trans  &trans        &trans             &trans  &trans  &trans  &trans
                  &trans                            &trans           &trans           &trans         &trans      &trans  &trans        &trans             &trans          &trans
             >;
 
             //sensor-bindings = <&trans &trans>;
         };
     };
-}
+};
