@@ -34,7 +34,7 @@
              * | LMETA |   Z   |   X   |   C   |   V   |   B   | MUTE  |-------------------|PRTSCRN|   N   |   M   |   ,   |   .   |   /   | RMETA |
              * --------| none  |---------------| LCTRL | LALT  |RET(LOW)| ESC  |---| BSPC |SPC(RAI)| RALT  | RCTRL |-------| none  |----------------
              *
-             * CAP = tap dance CAPWORD,CAPS
+             * CAPS = tap dance CAPWORD,CAPS
              * LOWER = layer tap SPACE(LOWER)
              * RAISE = layer tap BKSPC(RAISE)
              * '(RSHIFT) = mod tap QUOTE(SHIFT)
@@ -54,7 +54,7 @@
              * -------------------------------------------------------------------------------------------------------------------------------------
              * | TAB   |   Q   |   W   |   E   |   R   |   T   |-----------------------------------|   Y   |   U   |   I   |   O   |   P   | CAPS  |
              * | LSHIFT|   A   |   S   |   D   |   F   |   G   |-----------------------------------|   H   |   J   |   K   |   L   |   ;   |'(RSHIFT)|
-             * | LALT  |   Z   |   X   |   C   |   V   |   B   | MUTE  |-------------------|PRTSCRN|   N   |   M   |   ,   |   .   |   /   | RALT  |
+             * | LALT  |   Z   |   X   |   C   |   V   |   B   |  MUTE  |-----------------|  PSCRN |   N   |   M   |   ,   |   .   |   /   | RALT  |
              * --------| none  |---------------| LCTRL | LMETA |RET(LOW)| ESC  |---| BSPC |SPC(RAI)| RMETA | RCTRL |-------| none  |----------------
              */
             bindings = <
@@ -70,15 +70,15 @@
         lower_layer {
             /*
              * -------------------------------------------------------------------------------------------------------------------------------------
-             * |  F12  |  F1   |  F2   |  F3   |  F4   |  F5   |-----------------------------------|  F6   |  F7   |  F8   |  F9   |  F10  |  F11  |
+             * | trans |   !   |   @   |   #   |   $   |   %   |-----------------------------------|   ^   |   &   |   *   |   (   |   )   | trans |
              * |   `   |   1   |   2   |   3   |   4   |   5   |-----------------------------------|   6   |   7   |   8   |   9   |   0   |   ~   |
-             * | trans |   !   |   @   |   #   |   $   |   %   | trans |-------------------| trans |   ^   |   &   |   *   |   (   |   )   | trans |
+             * |  F12  |  F1   |  F2   |  F3   |  F4   |  F5   | trans |-------------------| trans |  F6   |  F7   |  F8   |  F9   |  F10  |  F11  |
              * --------| trans |---------------| trans | trans | trans | trans |---| trans | trans | trans | trans |-------| trans |----------------
              */
             bindings = <
-&kp F12   &kp F1    &kp F2  &kp F3    &kp F4      &kp F5                          &kp F6     &kp F7    &kp F8     &kp F9    &kp F10   &kp F11
+&trans    &kp EXCL  &kp AT  &kp HASH  &kp DOLLAR  &kp PRCNT                       &kp CARET  &kp AMPS  &kp ASTRK  &kp LPAR  &kp RPAR  &trans
 &kp GRAVE &kp N1    &kp N2  &kp N3    &kp N4      &kp N5                          &kp N6     &kp N7    &kp N8     &kp N9    &kp N0    &kp TILDE
-&trans    &kp EXCL  &kp AT  &kp HASH  &kp DOLLAR  &kp PRCNT  &trans       &trans  &kp CARET  &kp AMPS  &kp ASTRK  &kp LPAR  &kp RPAR  &trans
+&kp F12   &kp F1    &kp F2  &kp F3    &kp F4      &kp F5     &trans       &trans  &kp F6     &kp F7    &kp F8     &kp F9    &kp F10   &kp F11
           &trans            &trans    &trans      &trans     &trans       &trans  &mo 4      &trans    &trans               &trans
             >;
 
