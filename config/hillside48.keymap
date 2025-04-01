@@ -6,7 +6,7 @@
 #include <dt-bindings/zmk/rgb.h>
 
 &lt {
-    tapping-term-ms = <150>;
+    tapping-term-ms = <120>;
 };
 
 &mt {
@@ -14,14 +14,14 @@
 };
 
 / {
-    behaviors {
-        cap_dance: tap_dance_0 {
-            compatible = "zmk,behavior-tap-dance";
-            #binding-cells = <0>;
-            tapping-term-ms = <350>;
-            bindings = <&caps_word>, <&kp CAPS>;
-        };
-    };
+    //behaviors {
+    //    cap_dance: tap_dance_0 {
+    //        compatible = "zmk,behavior-tap-dance";
+    //        #binding-cells = <0>;
+    //        tapping-term-ms = <350>;
+    //        bindings = <&caps_word>, <&kp CAPS>;
+    //    };
+    //};
 
     keymap {
         compatible = "zmk,keymap";
@@ -34,13 +34,12 @@
              * | LMETA |   Z   |   X   |   C   |   V   |   B   | MUTE  |-------------------|PRTSCRN|   N   |   M   |   ,   |   .   |   /   | RMETA |
              * --------| none  |---------------| LCTRL | LALT  |RET(LOW)| ESC  |---| BSPC |SPC(RAI)| RALT  | RCTRL |-------| none  |----------------
              *
-             * CAPS = tap dance CAPWORD,CAPS
              * LOWER = layer tap SPACE(LOWER)
              * RAISE = layer tap BKSPC(RAISE)
              * '(RSHIFT) = mod tap QUOTE(SHIFT)
              */
             bindings = <
-&kp TAB     &kp Q  &kp W  &kp E      &kp R     &kp T                                 &kp Y        &kp U     &kp I      &kp O    &kp P      &cap_dance
+&kp TAB     &kp Q  &kp W  &kp E      &kp R     &kp T                                 &kp Y        &kp U     &kp I      &kp O    &kp P      &kp CAPS
 &kp LSHIFT  &kp A  &kp S  &kp D      &kp F     &kp G                                 &kp H        &kp J     &kp K      &kp L    &kp SEMI   &mt RSHIFT SQT
 &kp LMETA   &kp Z  &kp X  &kp C      &kp V     &kp B      &kp C_MUTE      &kp PSCRN  &kp N        &kp M     &kp COMMA  &kp DOT  &kp SLASH  &kp RMETA
             &none         &kp LCTRL  &kp LALT  &lt 2 RET  &kp ESC         &kp BSPC   &lt 3 SPACE  &kp RALT  &kp RCTRL           &none
@@ -58,7 +57,7 @@
              * --------| none  |---------------| LCTRL | LMETA |RET(LOW)| ESC  |---| BSPC |SPC(RAI)| RMETA | RCTRL |-------| none  |----------------
              */
             bindings = <
-&kp TAB     &kp Q  &kp W  &kp E      &kp R      &kp T                                 &kp Y        &kp U      &kp I      &kp O    &kp P      &cap_dance
+&kp TAB     &kp Q  &kp W  &kp E      &kp R      &kp T                                 &kp Y        &kp U      &kp I      &kp O    &kp P      &kp CAPS
 &kp LSHIFT  &kp A  &kp S  &kp D      &kp F      &kp G                                 &kp H        &kp J      &kp K      &kp L    &kp SEMI   &mt RSHIFT SQT
 &kp LALT    &kp Z  &kp X  &kp C      &kp V      &kp B      &kp C_MUTE      &kp PSCRN  &kp N        &kp M      &kp COMMA  &kp DOT  &kp SLASH  &kp RALT
             &none         &kp LCTRL  &kp LMETA  &lt 2 RET  &kp ESC         &kp BSPC   &lt 3 SPACE  &kp RMETA  &kp RCTRL           &none
@@ -70,16 +69,16 @@
         lower_layer {
             /*
              * -------------------------------------------------------------------------------------------------------------------------------------
-             * | trans |   !   |   @   |   #   |   $   |   %   |-----------------------------------|   ^   |   &   |   *   |   (   |   )   | trans |
+             * | trans |   !   |   @   |   #   |   $   |   %   |-----------------------------------|   ^   |   &   |   *   |   (   |   )   |CAPWORD|
              * |   `   |   1   |   2   |   3   |   4   |   5   |-----------------------------------|   6   |   7   |   8   |   9   |   0   |   ~   |
              * |  F12  |  F1   |  F2   |  F3   |  F4   |  F5   | trans |-------------------| trans |  F6   |  F7   |  F8   |  F9   |  F10  |  F11  |
-             * --------| trans |---------------| trans | trans | trans | trans |---| trans | trans | trans | trans |-------| trans |----------------
+             * --------| trans |---------------| trans | trans | trans | trans |----|DELETE| trans | trans | trans |-------| trans |----------------
              */
             bindings = <
-&trans    &kp EXCL  &kp AT  &kp HASH  &kp DOLLAR  &kp PRCNT                       &kp CARET  &kp AMPS  &kp ASTRK  &kp LPAR  &kp RPAR  &trans
+&trans    &kp EXCL  &kp AT  &kp HASH  &kp DOLLAR  &kp PRCNT                       &kp CARET  &kp AMPS  &kp ASTRK  &kp LPAR  &kp RPAR  &caps_word
 &kp GRAVE &kp N1    &kp N2  &kp N3    &kp N4      &kp N5                          &kp N6     &kp N7    &kp N8     &kp N9    &kp N0    &kp TILDE
 &kp F12   &kp F1    &kp F2  &kp F3    &kp F4      &kp F5     &trans       &trans  &kp F6     &kp F7    &kp F8     &kp F9    &kp F10   &kp F11
-          &trans            &trans    &trans      &trans     &trans       &trans  &mo 4      &trans    &trans               &trans
+          &trans            &trans    &trans      &trans     &trans       &kp DEL &mo 4      &trans    &trans               &trans
             >;
 
             //sensor-bindings = <&trans &inc_dec_kp SCRL_LEFT SCRL_RIGHT>; // Not supported for now
@@ -88,15 +87,15 @@
         raise_layer {
             /*
              * -------------------------------------------------------------------------------------------------------------------------------------
-             * |   !   |   $   |   +   |   =   |   (   |   )   |-----------------------------------|PG_DOWN| HOME  |  END  | PG_UP |   ^   | trans |
+             * |   !   |   $   |   +   |   =   |   (   |   )   |-----------------------------------|PG_DOWN| HOME  |  END  | PG_UP |   ^   |CAPWORD|
              * |   @   |   %   |   -   |   _   |   {   |   }   |-----------------------------------| LEFT  | DOWN  |  UP   | RIGHT |   &   | trans |
-             * |   #   |   ^   |   \   |   |   |   [   |   ]   | trans |-------------------| trans | trans | trans | trans | trans |   *   | trans |
+             * |   #   |   ^   |   \   |   |   |   [   |   ]   | trans |-------------------| trans | trans | INSERT| DELETE| trans |   *   | trans |
              * --------| trans |---------------| trans | trans | trans | trans |---| trans | trans | trans | trans |-------| trans |----------------
              */
             bindings = <
-&kp EXCL  &kp DOLLAR  &kp PLUS   &kp EQUAL  &kp LPAR  &kp RPAR                      &kp PG_UP  &kp HOME  &kp END  &kp PG_DN  &kp CARET  &trans
+&kp EXCL  &kp DOLLAR  &kp PLUS   &kp EQUAL  &kp LPAR  &kp RPAR                      &kp PG_UP  &kp HOME  &kp END  &kp PG_DN  &kp CARET  &caps_word
 &kp AT    &kp PRCNT   &kp MINUS  &kp UNDER  &kp LBRC  &kp RBRC                      &kp LEFT   &kp DOWN  &kp UP   &kp RIGHT  &kp AMPS   &trans
-&kp HASH  &kp CARET   &kp BSLH   &kp PIPE   &kp LBKT  &kp RBKT  &trans      &trans  &trans     &trans    &trans   &trans     &kp ASTRK  &trans
+&kp HASH  &kp CARET   &kp BSLH   &kp PIPE   &kp LBKT  &kp RBKT  &trans      &trans  &trans     &kp INS   &kp DEL  &trans     &kp ASTRK  &trans
           &trans                 &trans     &trans    &mo 4     &trans      &trans  &trans     &trans    &trans              &trans
             >;
 
